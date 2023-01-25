@@ -4,7 +4,7 @@ const { generarJWT } = require('../helpers/jwt')
 
 const getUser = async (req, res) => {
     try {
-        const user = await User.findById(req.uid);
+        const user = await User.findById(req.userUid).select("-password");
         res.json(user);
     } catch (e) {
         console.log(e);
@@ -14,8 +14,17 @@ const getUser = async (req, res) => {
     }
 }
 
-const getUserById = (req, res) => {
-    res.send("Get user by id");
+const getUserById = async (req, res) => {
+    try {
+        const userId = req.params.user_id;
+        const user = await User.findById(userId).select("-password");
+        res.json(user);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({
+            error: "Server error"
+        })
+    }
 }
 
 const loginUser = async (req, res) => {

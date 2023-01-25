@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const validarJWT = (req, res = response, next) => {
+const validarJWT = (req, res, next) => {
 
     const token = req.header('authentication-token');
 
@@ -17,11 +17,12 @@ const validarJWT = (req, res = response, next) => {
             process.env.SECRET_JWT
         );
 
-        req.uid = uid;
-        req.username = username;
+        req.userUid = uid;
+        req.userUsername = username;
 
 
     } catch (error) {
+        console.log(error);
         return res.status(401).json({
             error: 'Token no válido'
         });
