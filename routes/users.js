@@ -1,6 +1,7 @@
 const express = require('express');
 
-const { getUser, getUserById, loginUser, registerUser } = require('../controllers/users');
+const { getUser, getUserById } = require('../controllers/users/user');
+const { loginUser, registerUser } = require('../controllers/users/login')
 const { validarJWT } = require('../middlewares/authentication');
 const { registerValidator, loginValidator, checkErrors } = require('../middlewares/expressValidator');
 

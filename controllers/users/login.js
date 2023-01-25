@@ -1,31 +1,6 @@
-const User = require('../models/User');
+const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
-const { generarJWT } = require('../helpers/jwt')
-
-const getUser = async (req, res) => {
-    try {
-        const user = await User.findById(req.userUid).select("-password");
-        res.json(user);
-    } catch (e) {
-        console.log(e);
-        return res.status(500).json({
-            error: "Server error"
-        });
-    }
-}
-
-const getUserById = async (req, res) => {
-    try {
-        const userId = req.params.user_id;
-        const user = await User.findById(userId).select("-password");
-        res.json(user);
-    } catch (e) {
-        console.log(e);
-        return res.status(500).json({
-            error: "Server error"
-        })
-    }
-}
+const { generarJWT } = require('../../helpers/jwt')
 
 const loginUser = async (req, res) => {
     try {
@@ -46,7 +21,7 @@ const loginUser = async (req, res) => {
         // Generar JWT
         const token = await generarJWT(user.id, user.username);
         res.json({
-            uid: user.id,
+            id: user.id,
             username: user.username,
             token
         });
@@ -90,7 +65,7 @@ const registerUser = async (req, res) => {
         const token = await generarJWT(newUser.id, newUser.username);
 
         res.status(201).json({
-            uid: newUser.id,
+            id: newUser.id,
             username: newUser.username,
             token
         });
@@ -104,8 +79,6 @@ const registerUser = async (req, res) => {
 }
 
 module.exports = {
-    getUser,
-    getUserById,
     loginUser,
     registerUser
 }

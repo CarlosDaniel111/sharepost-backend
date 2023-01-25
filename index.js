@@ -23,5 +23,5 @@ app.use("/api/users", require("./routes/users"));
 
 // Abrir servidor
 app.listen(process.env.PORT, () => {
-    console.log(`Servidor corriendo en puerto ${process.env.PORT}`);
+    console.log(`Servidor corriendo en puerto ${process.env.PORT || 4000}`);
 })
